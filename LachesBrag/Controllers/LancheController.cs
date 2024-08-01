@@ -14,8 +14,15 @@ namespace LachesBrag.Controllers
 
         public IActionResult List()
         {
+            ViewData["Titulo"] = "Todos os Lanches";
+            ViewData["Data"] = DateTime.Now;
+
             var lanches = _LannchesRepository.Lanches;
-            return View(lanches);
+            
+
+            ViewBag.TotalLaches = lanches.Count();
+            ViewBag.Total = "Total de Lanches : ";
+                return View(lanches);
         }
     }
 }
