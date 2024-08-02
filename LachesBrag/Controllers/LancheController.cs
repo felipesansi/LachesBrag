@@ -1,4 +1,5 @@
 ﻿using LachesBrag.Repositories.Interfaces;
+using LachesBrag.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LachesBrag.Controllers
@@ -14,15 +15,15 @@ namespace LachesBrag.Controllers
 
         public IActionResult List()
         {
-            ViewData["Titulo"] = "Todos os Lanches";
-            ViewData["Data"] = DateTime.Now;
+          
 
-            var lanches = _LannchesRepository.Lanches;
+            //            var lanches = _LannchesRepository.Lanches;
+            //                return View(lanches);
+            var lancheslistViewModel = new LancheListViewModel();
+            lancheslistViewModel.lanches = _LannchesRepository.Lanches;
+            lancheslistViewModel.categoriaAtual = "Categoria Atual";
             
-
-            ViewBag.TotalLaches = lanches.Count();
-            ViewBag.Total = "Total de Lanches : ";
-                return View(lanches);
+            return View(lancheslistViewModel);
         }
     }
 }
