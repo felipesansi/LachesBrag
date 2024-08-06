@@ -12,6 +12,8 @@ namespace LachesBrag.Context
       
         public DbSet<Categoria> Categorias { get; set; } // Categoria é os elementos dentro do Tabela Categorias
         public DbSet<Lanches> Lanches { get; set; } // Laches é os elementos dentro do Tabela lanches
+        public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; } // CarrinhoCompraItens é os elementos dentro do Tabela CarrinhoCompraItem
+
 
     }
 }
