@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LachesBrag.Models
 {
     [Table ("Lanches")]
-    public class Lanches
+    public class Lanche
     {
         [Key]
         public int LancheId { get; set; } // Chave primaria lanches

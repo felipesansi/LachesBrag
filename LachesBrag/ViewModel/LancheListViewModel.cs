@@ -37,7 +37,7 @@ namespace LachesBrag.ViewModel
         /// <summary>
         /// Coleção de lanches a serem exibidos na View.
         /// </summary>
-        public IEnumerable<Lanches> lanches { get; set; }
+        public IEnumerable<Lanche> lanches { get; set; }
 
         /// <summary>
         /// Nome da categoria atual sendo exibida na View.

@@ -19,7 +19,7 @@ namespace LachesBrag.Models
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
-        public List<Lanches> Lanches { get; set; } // relacionamento com lanches
+        public List<Lanche> Lanches { get; set; } // relacionamento com lanches
 
     }
 }

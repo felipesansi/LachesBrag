@@ -8,7 +8,7 @@ namespace LachesBrag.Models
     {
         [Key]
         public int CarrinhoCompraItemId { get; set; } // chave primária
-         public Lanches Lanche { get; set; } // cheve estrangeira
+         public Lanche Lanche { get; set; } // cheve estrangeira
 
         public int Quantidade { get; set; }
 

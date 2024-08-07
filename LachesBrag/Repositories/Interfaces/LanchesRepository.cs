@@ -11,11 +11,11 @@ namespace LachesBrag.Repositories.Interfaces
         {
                 _context = contexto;
         }
-        public IEnumerable<Lanches> Lanches => _context.Lanches.Include(c => c.Categoria);
+        public IEnumerable<Lanche> Lanches => _context.Lanches.Include(c => c.Categoria);
 
-        public IEnumerable<Lanches> LanchesPreferidos => _context.Lanches.Where(l => l.LanchePreferido).Include(c => c.Categoria);
+        public IEnumerable<Lanche> LanchesPreferidos => _context.Lanches.Where(l => l.LanchePreferido).Include(c => c.Categoria);
 
-        public Lanches GetLanchesbyId(int lancheId)
+        public Lanche GetLanchesbyId(int lancheId)
         {
          return _context.Lanches.FirstOrDefault(l =>l.LancheId == lancheId);
         }

@@ -4,8 +4,8 @@ namespace LachesBrag.Repositories.Interfaces
 {
     public interface ILanchesRepository
     {
-        IEnumerable<Lanches> Lanches { get; }
-        IEnumerable<Lanches> LanchesPreferidos { get; }
-        Lanches GetLanchesbyId(int lancheId);
+        IEnumerable<Lanche> Lanches { get; }
+        IEnumerable<Lanche> LanchesPreferidos { get; }
+        Lanche GetLanchesbyId(int lancheId);
     }
 }
