@@ -3,16 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LachesBrag.Models
 {
-    [Table("CarrinoCompraItens")]
+    [Table("CarrinhoCompraItens")]
     public class CarrinhoCompraItem
     {
         [Key]
         public int CarrinhoCompraItemId { get; set; } // chave primária
-         public Lanche Lanche { get; set; } // cheve estrangeira
+
+        public Lanche Lanche { get; set; } // chave estrangeira
 
         public int Quantidade { get; set; }
 
         [MaxLength(200)]
-        public int CarrinhoCompraId { get; set; }
+        public string CarrinhoCompraId { get; set; } 
     }
 }
