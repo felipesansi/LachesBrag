@@ -104,5 +104,25 @@ namespace LanchesMac.Models
             return quantidade_local;// retoorne o valor de quantidade_local
 
         }
+        public List<CarrinhoCompraItem> GetCarrinhoCompraItens() 
+        {
+            return CarrinhoCompraItems ??
+                (CarrinhoCompraItems = _context.CarrinhoCompraItens
+                .Where(c => c.CarrinhoCompraId == CarrinhoCompraId)
+                .Include(s => s.Lanche).ToList());
+        }
+        public void LimparCarrinho()
+        {
+            var carrinho = _context.CarrinhoCompraItens.Where(carrinho => carrinho.CarrinhoCompraId == carrinho.CarrinhoCompraId);
+            _context.CarrinhoCompraItens. RemoveRange(carrinho);
+            _context.SaveChanges();
+        }
+        public decimal TotalItens()
+        {
+            var total = _context.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == CarrinhoCompraId)
+                .Select(c => c.Lanche.Preco * c.Quantidade).Sum();
+           
+            return total;
+        }
     }
 }

@@ -1,5 +1,6 @@
 using LachesBrag.Context; // Importa o namespace do contexto da aplicação
 using LachesBrag.Repositories.Interfaces; // Importa as interfaces dos repositórios
+using LanchesMac.Models;
 using Microsoft.EntityFrameworkCore; // Importa o namespace para usar o Entity Framework Core
 
 // Cria o construtor da aplicação web
@@ -16,6 +17,11 @@ builder.Services.AddControllersWithViews(); // Adiciona o suporte para controlad
 // Registro dos repositórios
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>(); // Registra o repositório de categoria como um serviço transitório
 builder.Services.AddTransient<ILanchesRepository, LanchesRepository>(); // Registra o repositório de lanches como um serviço transitório
+
+// Registra o serviço `CarrinhoCompra` no contêiner de injeção de dependências com o ciclo de vida "Scoped".
+// Isso significa que uma instância única do `CarrinhoCompra` será criada por requisição.
+// O método `GetCarrinho` é chamado para obter uma instância do carrinho, que será injetada onde necessário.
+builder.Services.AddScoped(Sp=> CarrinhoCompra.GetCarrinho(Sp));
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Adiciona o HttpContextAccessor como um serviço singleton
 
