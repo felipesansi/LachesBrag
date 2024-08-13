@@ -12,10 +12,11 @@ namespace LachesBrag.Migrations
 
             migrationBuilder.Sql("insert into Categorias (CategoriaNome, Descricao) values ('Naturais', 'Lanches com ingredientes naturais')");
         }
+    
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM Categorias");
-        }
+        migrationBuilder.Sql("DELETE FROM Categorias");
+    }
     }
 }

@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LachesBrag.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240806140714_CarrinhoCompraItem")]
-    partial class CarrinhoCompraItem
+    [Migration("20240813193845_PopulandoCategorias")]
+    partial class PopulandoCategorias
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.32")
+                .HasAnnotation("ProductVersion", "6.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -32,9 +32,9 @@ namespace LachesBrag.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarrinhoCompraItemId"), 1L, 1);
 
-                    b.Property<int>("CarrinhoCompraId")
+                    b.Property<string>("CarrinhoCompraId")
                         .HasMaxLength(200)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("LancheId")
                         .HasColumnType("int");
@@ -46,7 +46,7 @@ namespace LachesBrag.Migrations
 
                     b.HasIndex("LancheId");
 
-                    b.ToTable("CarrinoCompraItens");
+                    b.ToTable("CarrinhoCompraItens");
                 });
 
             modelBuilder.Entity("LachesBrag.Models.Categoria", b =>
@@ -72,7 +72,7 @@ namespace LachesBrag.Migrations
                     b.ToTable("Categorias");
                 });
 
-            modelBuilder.Entity("LachesBrag.Models.Lanches", b =>
+            modelBuilder.Entity("LachesBrag.Models.Lanche", b =>
                 {
                     b.Property<int>("LancheId")
                         .ValueGeneratedOnAdd()
@@ -124,14 +124,14 @@ namespace LachesBrag.Migrations
 
             modelBuilder.Entity("LachesBrag.Models.CarrinhoCompraItem", b =>
                 {
-                    b.HasOne("LachesBrag.Models.Lanches", "Lanche")
+                    b.HasOne("LachesBrag.Models.Lanche", "Lanche")
                         .WithMany()
                         .HasForeignKey("LancheId");
 
                     b.Navigation("Lanche");
                 });
 
-            modelBuilder.Entity("LachesBrag.Models.Lanches", b =>
+            modelBuilder.Entity("LachesBrag.Models.Lanche", b =>
                 {
                     b.HasOne("LachesBrag.Models.Categoria", "Categoria")
                         .WithMany("Lanches")

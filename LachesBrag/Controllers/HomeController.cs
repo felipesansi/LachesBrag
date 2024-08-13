@@ -1,14 +1,28 @@
 ﻿using LachesBrag.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using LachesBrag.Repositories;
+using LachesBrag.Repositories.Interfaces;
+using LachesBrag.ViewModel;
 
 namespace LachesBrag.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILanchesRepository _lanchesRepository;
+
+        public HomeController(ILanchesRepository lanchesRepository)
+        {
+            _lanchesRepository = lanchesRepository;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var homeViewModel = new HomeViewModel
+            {
+                LanchesPreferidos = _lanchesRepository.LanchesPreferidos
+            };
+            return View(homeViewModel);
         }
 
     
