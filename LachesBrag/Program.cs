@@ -1,7 +1,7 @@
-using LachesBrag.Context; // Importa o namespace do contexto da aplicação
-using LachesBrag.Repositories.Interfaces; // Importa as interfaces dos repositórios
+using LachesBrag.Context; 
+using LachesBrag.Repositories.Interfaces; 
 using LanchesMac.Models;
-using Microsoft.EntityFrameworkCore; // Importa o namespace para usar o Entity Framework Core
+using Microsoft.EntityFrameworkCore; 
 
 // Cria o construtor da aplicação web
 var builder = WebApplication.CreateBuilder(args);
