@@ -1,6 +1,6 @@
 ﻿using LachesBrag.Repositories.Interfaces;  
 using LachesBrag.ViewModel;
-using LanchesMac.Models; 
+using LanchesBrag.Models;
 using Microsoft.AspNetCore.Mvc;  
 
 namespace LachesBrag.Controllers

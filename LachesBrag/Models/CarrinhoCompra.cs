@@ -3,7 +3,7 @@ using LachesBrag.Models;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace LanchesMac.Models
+namespace LanchesBrag.Models
 {
    
     public class CarrinhoCompra

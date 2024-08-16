@@ -1,7 +1,7 @@
-using LachesBrag.Context; 
-using LachesBrag.Repositories.Interfaces; 
-using LanchesMac.Models;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
+using LachesBrag.Context;
+using LachesBrag.Repositories.Interfaces;
+using LanchesBrag.Models;
 
 // Cria o construtor da aplicação web
 var builder = WebApplication.CreateBuilder(args);
@@ -21,14 +21,14 @@ builder.Services.AddTransient<ILanchesRepository, LanchesRepository>(); // Regis
 // Registra o serviço `CarrinhoCompra` no contêiner de injeção de dependências com o ciclo de vida "Scoped".
 // Isso significa que uma instância única do `CarrinhoCompra` será criada por requisição.
 // O método `GetCarrinho` é chamado para obter uma instância do carrinho, que será injetada onde necessário.
-builder.Services.AddScoped(Sp=> CarrinhoCompra.GetCarrinho(Sp));
+builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Adiciona o HttpContextAccessor como um serviço singleton
 
 builder.Services.AddMemoryCache(); // Adiciona o serviço de cache em memória
 builder.Services.AddSession(); // Adiciona o suporte para sessões
 
-var app = builder.Build(); // Constroi a aplicação
+var app = builder.Build(); // Constrói a aplicação
 
 // Configurar o pipeline de requisição HTTP.
 if (!app.Environment.IsDevelopment()) // Se não estiver em ambiente de desenvolvimento
@@ -43,6 +43,19 @@ app.UseSession(); // Habilita o uso de sessões
 app.UseRouting(); // Habilita o roteamento
 
 app.UseAuthorization(); // Habilita a autorização
+
+// Configuração das rotas
+app.MapControllerRoute(
+    name: "list",  // Define o nome da rota como "list", o que pode ser útil para gerar URLs ou fazer referência a essa rota em outras partes da aplicação.
+    pattern: "Lanche/{action=List}/{categoria?}", // Define o padrão da URL que será mapeado para esta rota. Neste caso:
+                                                  // - "Lanche" é o segmento fixo da URL.
+                                                  // - "{action=List}" define um parâmetro de URL opcional chamado "action" que, se não fornecido, será "List" por padrão.
+                                                  // - "{categoria?}" é um parâmetro opcional de URL chamado "categoria". O "?" indica que esse parâmetro é opcional.
+    defaults: new { controller = "Lanche", action = "List" } // Define valores padrão para os parâmetros da rota. 
+                                                             // Se o "controller" não for especificado na URL, ele será definido como "Lanche".
+                                                             // Se o "action" não for especificado, será definido como "List".
+);
+
 
 app.MapControllerRoute(
     name: "default", // Define a rota padrão
