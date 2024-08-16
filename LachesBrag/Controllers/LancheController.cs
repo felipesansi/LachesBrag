@@ -1,29 +1,60 @@
-﻿using LachesBrag.Repositories.Interfaces;
+﻿using LachesBrag.Models;
+using LachesBrag.Repositories.Interfaces;
 using LachesBrag.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LachesBrag.Controllers
+namespace LanchesMac.Controllers
 {
     public class LancheController : Controller
     {
-        private readonly ILanchesRepository _LannchesRepository;
-
-        public LancheController(ILanchesRepository lannchesRepository)
+        private readonly ILanchesRepository _lancheRepository;
+        public LancheController(ILanchesRepository lancheRepository)
         {
-            _LannchesRepository = lannchesRepository;
+            _lancheRepository = lancheRepository;
         }
 
-        public IActionResult List()
+        public IActionResult List(string categoria)
         {
-          
+            IEnumerable<Lanche> lanches;
+            string categoriaAtual = string.Empty;
 
-            //            var lanches = _LannchesRepository.Lanches;
-            //                return View(lanches);
-            var lancheslistViewModel = new LancheListViewModel();
-            lancheslistViewModel.lanches = _LannchesRepository.Lanches;
-            lancheslistViewModel.categoriaAtual = "Categoria Atual";
-            
-            return View(lancheslistViewModel);
+            if (string.IsNullOrEmpty(categoria))
+            {
+                lanches = _lancheRepository.Lanches.OrderBy(l => l.LancheId);
+                categoriaAtual = "Todos os lanches";
+            }
+            else
+            {
+                if (string.Equals("Normal", categoria, StringComparison.OrdinalIgnoreCase))
+                {
+                    lanches = _lancheRepository.Lanches
+                        .Where(l => l.Categoria.CategoriaNome.Equals("Normal"))
+                        .OrderBy(l => l.Nome);
+                    categoriaAtual = categoria;
+                }
+                else if (string.Equals("Natural", categoria, StringComparison.OrdinalIgnoreCase))
+                {
+                    lanches = _lancheRepository.Lanches
+                       .Where(l => l.Categoria.CategoriaNome.Equals("Natural"))
+                       .OrderBy(l => l.Nome);
+                    categoriaAtual = categoria;
+                }
+                else
+                {
+                    lanches = Enumerable.Empty<Lanche>();
+                    categoriaAtual = "Esta Categoria Não existe no Sistema ";
+                }
+              
+            }
+
+            var lanchesListViewModel = new LancheListViewModel
+            {
+                lanches = lanches,
+                categoriaAtual = categoriaAtual
+            };
+
+            return View(lanchesListViewModel);
         }
+
     }
 }
