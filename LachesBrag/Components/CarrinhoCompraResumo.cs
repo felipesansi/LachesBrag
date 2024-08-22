@@ -8,34 +8,29 @@ namespace LachesBrag.Components
     // Este componente de visualização resume o conteúdo do carrinho de compras
     public class CarrinhoCompraResumo : ViewComponent
     {
-        // Referência ao carrinho de compras injetado via dependência
-        private readonly CarrinhoCompra _carrinhoCompra;
+        private readonly CarrinhoCompra _carrinhoCompra;  // Declara uma variável para armazenar a instância do carrinho de compras
 
-        // Construtor que inicializa a instância do carrinho de compras
+        // Construtor que injeta a dependência do carrinho de compras
         public CarrinhoCompraResumo(CarrinhoCompra carrinhoCompra)
         {
-            _carrinhoCompra = carrinhoCompra;
+            _carrinhoCompra = carrinhoCompra;  // Inicializa o carrinho de compras
         }
 
-        // Método Invoke é chamado quando o componente de visualização é renderizado
+        // Método que é invocado quando o componente é renderizado
         public IViewComponentResult Invoke()
         {
-            // Obtém os itens do carrinho de compras atual
-            var itens = _carrinhoCompra.GetCarrinhoCompraItens();
-          
+            var itens = _carrinhoCompra.GetCarrinhoCompraItens();  // Obtém os itens do carrinho de compras
 
-            // Atualiza os itens do carrinho de compras
-            _carrinhoCompra.CarrinhoCompraItems = itens;
+            _carrinhoCompra.CarrinhoCompraItems = itens;  // Atribui os itens obtidos ao carrinho de compras
 
-            // Cria uma instância do ViewModel com os dados do carrinho de compras
-            var carrinho_view_model = new CarrinhoCompraViewModel
+            // Cria um ViewModel para passar os dados para a view do componente
+            var carrinhoCompraVM = new CarrinhoCompraViewModel
             {
-                CarrinhoCompra = _carrinhoCompra,
-                TotalCompraItens = _carrinhoCompra.TotalItens()
+                CarrinhoCompra = _carrinhoCompra,  // Atribui o carrinho de compras atual ao ViewModel
+                CarrinhoCompraTotal = _carrinhoCompra.MostarCarrinhoCompraTotal() // Calcula o total do carrinho e atribui ao ViewModel
             };
 
-            // Retorna a visualização com o ViewModel populado
-            return View(carrinho_view_model);
+            return View(carrinhoCompraVM);  // Retorna a view com o ViewModel do carrinho de compras
         }
     }
 }

@@ -2,127 +2,120 @@
 using LachesBrag.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace LanchesBrag.Models
 {
-   
     public class CarrinhoCompra
     {
-        // Campo privado que mantém uma referência ao contexto do banco de dados
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context; // Declara uma variável privada para armazenar a instância do contexto de banco de dados
 
-        // Construtor da classe que aceita um contexto de banco de dados como argumento
-        public CarrinhoCompra(AppDbContext context)
+        public CarrinhoCompra(AppDbContext context) // Construtor da classe que recebe o contexto do banco de dados por injeção de dependência
         {
-            _context = context; // Inicializa o contexto do banco de dados
+            _context = context; // Atribui a instância do contexto à variável privada
         }
 
-        // Propriedade que armazena o ID do carrinho de compras, usado para identificar o carrinho de um usuário
-        public string CarrinhoCompraId { get; set; }
+        public string CarrinhoCompraId { get; set; } // Propriedade que armazena o ID do carrinho de compras
+        public List<CarrinhoCompraItem> CarrinhoCompraItems { get; set; } // Propriedade que armazena a lista de itens no carrinho de compras
 
-        // Lista de itens no carrinho de compras
-        public List<CarrinhoCompraItem> CarrinhoCompraItems { get; set; }
-
-        // Método estático para obter ou criar um carrinho de compras usando o provedor de serviços
-        public static CarrinhoCompra GetCarrinho(IServiceProvider services)
+        public static CarrinhoCompra GetCarrinho(IServiceProvider services) // Método estático que retorna uma instância do carrinho de compras
         {
-            // Obtém a sessão HTTP atual usando o IHttpContextAccessor
-            ISession session =
-                services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            // Define uma sessão
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
 
-            // Obtém uma instância do AppDbContext a partir do provedor de serviços
+            // Obtém um serviço do tipo do nosso contexto de banco de dados
             var context = services.GetService<AppDbContext>();
 
-            // Tenta obter o ID do carrinho de compras da sessão do usuário
-            // Se não existir, gera um novo GUID e o converte para string
+            // Obtém ou gera o ID do carrinho
             string carrinhoId = session.GetString("CarrinhoId") ?? Guid.NewGuid().ToString();
 
-            // Armazena o ID do carrinho na sessão para uso futuro
+            // Atribui o ID do carrinho na sessão
             session.SetString("CarrinhoId", carrinhoId);
 
-            // Retorna uma nova instância de CarrinhoCompra com o contexto e ID do carrinho
+            // Retorna o carrinho com o contexto e o ID atribuído ou obtido
             return new CarrinhoCompra(context)
             {
-                CarrinhoCompraId = carrinhoId
+                CarrinhoCompraId = carrinhoId // Define o ID do carrinho de compras
             };
         }
 
-        // Método para adicionar um lanche ao carrinho de compras
-        public void AdicionarAoCarrinho(Lanche lanche)
+        public void AdicionarAoCarrinho(Lanche lanche) // Método que adiciona um item ao carrinho de compras
         {
-            // Busca um item no carrinho que já contenha o lanche especificado
+            // Verifica se o lanche já está no carrinho para o mesmo ID de carrinho
             var carrinhoCompraItem = _context.CarrinhoCompraItens.SingleOrDefault(
-                     s => s.Lanche.LancheId == lanche.LancheId &&
-                     s.CarrinhoCompraId == CarrinhoCompraId);
+                s => s.Lanche.LancheId == lanche.LancheId &&
+                s.CarrinhoCompraId == CarrinhoCompraId);
 
-            // Se o item não existir, cria um novo item de carrinho
-            if (carrinhoCompraItem == null)
+            if (carrinhoCompraItem == null) // Se o item não estiver no carrinho
             {
-                // Cria uma nova instância de CarrinhoCompraItem e o adiciona ao contexto
+                // Cria um novo item do carrinho e o adiciona ao contexto
                 carrinhoCompraItem = new CarrinhoCompraItem
                 {
-                    CarrinhoCompraId = CarrinhoCompraId,
-                    Lanche = lanche,
-                    Quantidade = 1 // Inicializa a quantidade como 1
+                    CarrinhoCompraId = CarrinhoCompraId, // Define o ID do carrinho de compras
+                    Lanche = lanche, // Define o lanche que está sendo adicionado
+                    Quantidade = 1 // Define a quantidade inicial do item
                 };
-                _context.CarrinhoCompraItens.Add(carrinhoCompraItem);
+                _context.CarrinhoCompraItens.Add(carrinhoCompraItem); // Adiciona o item ao contexto
             }
             else
             {
-                // Se o item já existir no carrinho, incrementa a quantidade
+                // Se o item já estiver no carrinho, incrementa a quantidade
                 carrinhoCompraItem.Quantidade++;
             }
-
-            // Salva as mudanças no banco de dados
-            _context.SaveChanges();
+            _context.SaveChanges(); // Salva as mudanças no banco de dados
         }
-        public int RemoverItem(Lanche lanche)
+
+        public int RemoverDoCarrinho(Lanche lanche) // Método que remove um item do carrinho de compras
         {
+            // Verifica se o item do lanche existe no carrinho
             var carrinhoCompraItem = _context.CarrinhoCompraItens.SingleOrDefault(
-                     s => s.Lanche.LancheId == lanche.LancheId &&
-                     s.CarrinhoCompraId == CarrinhoCompraId);
-             
-            var quantidade_local = 0;
+                s => s.Lanche.LancheId == lanche.LancheId &&
+                s.CarrinhoCompraId == CarrinhoCompraId);
 
-            if (carrinhoCompraItem !=null) // se existir lanche no carrinho
+            var quantidadeLocal = 0; // Variável que armazena a quantidade local do item
+
+            if (carrinhoCompraItem != null) // Se o item existe no carrinho
             {
-                if (carrinhoCompraItem.Quantidade>1) //se a qtdade for maior que 1
+                if (carrinhoCompraItem.Quantidade > 1) // Se a quantidade for maior que 1
                 {
-
-                    carrinhoCompraItem.Quantidade--; // diminua a quantidade
-                    quantidade_local = carrinhoCompraItem.Quantidade; //pesse para quantidade_local
+                    carrinhoCompraItem.Quantidade--; // Decrementa a quantidade
+                    quantidadeLocal = carrinhoCompraItem.Quantidade; // Atualiza a quantidade local
                 }
                 else
                 {
-                        _context.CarrinhoCompraItens.Remove(carrinhoCompraItem); // se for igual 1 remova do carrinho
+                    // Se a quantidade for 1 ou menos, remove o item do carrinho
+                    _context.CarrinhoCompraItens.Remove(carrinhoCompraItem);
                 }
-           
-              
-
             }
-            _context.SaveChanges();     // salve as alterações 
-            return quantidade_local;// retoorne o valor de quantidade_local
+            _context.SaveChanges(); // Salva as mudanças no banco de dados
+            return quantidadeLocal; // Retorna a quantidade local atualizada
+        }
 
-        }
-        public List<CarrinhoCompraItem> GetCarrinhoCompraItens() 
+        public List<CarrinhoCompraItem> GetCarrinhoCompraItens() // Método que obtém os itens do carrinho de compras
         {
+            // Retorna a lista de itens no carrinho ou, se for nula, carrega os itens do banco de dados
             return CarrinhoCompraItems ??
-                (CarrinhoCompraItems = _context.CarrinhoCompraItens
-                .Where(c => c.CarrinhoCompraId == CarrinhoCompraId)
-                .Include(s => s.Lanche).ToList());
+                   (CarrinhoCompraItems =
+                       _context.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == CarrinhoCompraId)
+                           .Include(s => s.Lanche) // Inclui o objeto Lanche na consulta
+                           .ToList());
         }
-        public void LimparCarrinho()
+
+        public void LimparCarrinho() // Método que limpa todos os itens do carrinho de compras
         {
-            var carrinho = _context.CarrinhoCompraItens.Where(carrinho => carrinho.CarrinhoCompraId == carrinho.CarrinhoCompraId);
-            _context.CarrinhoCompraItens. RemoveRange(carrinho);
-            _context.SaveChanges();
+            // Obtém todos os itens no carrinho de compras com o ID atual
+            var carrinhoItens = _context.CarrinhoCompraItens
+                                 .Where(carrinho => carrinho.CarrinhoCompraId == CarrinhoCompraId);
+
+            // Remove todos os itens do contexto
+            _context.CarrinhoCompraItens.RemoveRange(carrinhoItens);
+            _context.SaveChanges(); // Salva as mudanças no banco de dados
         }
-        public decimal TotalItens()
+
+        public decimal MostarCarrinhoCompraTotal() // Método que calcula o total do carrinho de compras
         {
+            // Soma o preço dos lanches multiplicado pela quantidade para todos os itens no carrinho
             var total = _context.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == CarrinhoCompraId)
                 .Select(c => c.Lanche.Preco * c.Quantidade).Sum();
-           
-            return total;
+            return total; // Retorna o total calculado
         }
     }
 }

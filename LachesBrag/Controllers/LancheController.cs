@@ -25,27 +25,10 @@ namespace LanchesMac.Controllers
             }
             else
             {
-                if (string.Equals("Normal", categoria, StringComparison.OrdinalIgnoreCase))
-                {
-                    lanches = _lancheRepository.Lanches
-                        .Where(l => l.Categoria.CategoriaNome.Equals("Normal"))
-                        .OrderBy(l => l.Nome);
-                    categoriaAtual = categoria;
-                }
-                else if (string.Equals("Natural", categoria, StringComparison.OrdinalIgnoreCase))
-                {
-                    lanches = _lancheRepository.Lanches
-                       .Where(l => l.Categoria.CategoriaNome.Equals("Natural"))
-                       .OrderBy(l => l.Nome);
-                    categoriaAtual = categoria;
-                }
-                else
-                {
-                    lanches = Enumerable.Empty<Lanche>();
-                    categoriaAtual = "Esta Categoria Não existe no Sistema ";
-                }
-              
+                lanches = _lancheRepository.Lanches.Where(l => l.Categoria.CategoriaNome.Equals(categoria)).OrderBy(l => l.Nome);
+                categoriaAtual = categoria;
             }
+
 
             var lanchesListViewModel = new LancheListViewModel
             {
@@ -54,6 +37,11 @@ namespace LanchesMac.Controllers
             };
 
             return View(lanchesListViewModel);
+        }
+        public IActionResult Detalhes(int lancheId)
+        {
+             var lanche =_lancheRepository.Lanches.FirstOrDefault(l => l.LancheId== lancheId);
+            return View(lanche);
         }
 
     }
