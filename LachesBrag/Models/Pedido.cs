@@ -57,11 +57,11 @@ namespace LachesBrag.Models
         [ScaffoldColumn(false)]
        
         public int TotalItensPedidos { get; set; }
-        public decimal PedidoEnviado { get; set; }
+        public DateTime PedidoEnviado { get; set; }
         [DataType(DataType.Text)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
 
-        public decimal? PedididoEntregue { get; set; }
+        public DateTime? PedididoEntregue { get; set; }
         public List<PedidoDetalhe>  PedidoItens { get; set; }
     }
 }
