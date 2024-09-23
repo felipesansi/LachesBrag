@@ -17,6 +17,8 @@ builder.Services.AddControllersWithViews(); // Adiciona o suporte para controlad
 // Registro dos repositórios
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>(); // Registra o repositório de categoria como um serviço transitório
 builder.Services.AddTransient<ILanchesRepository, LanchesRepository>(); // Registra o repositório de lanches como um serviço transitório
+builder.Services.AddTransient<IPeddidoRepository, PedidoRepository>(); // Registra o repositório de pedido como um serviço transitório
+
 
 // Registra o serviço `CarrinhoCompra` no contêiner de injeção de dependências com o ciclo de vida "Scoped".
 // Isso significa que uma instância única do `CarrinhoCompra` será criada por requisição.

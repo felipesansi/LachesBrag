@@ -35,7 +35,14 @@
                         @await Component.InvokeAsync("CarrinhoCompraResumo")
                     </div>
                 </div>
+                <form class="navbar navbar-right" asp-controller="Lanche" asp-action="Pesquisa"method="get">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control"placeholder="Pesquisar lanches" name="SearchString" @ViewData["searchString"] />
+                    </div>
+                </form>
             </div>
+
         </nav>
     </header>
     <div class="container">
