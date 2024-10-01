@@ -1,4 +1,5 @@
-﻿using LachesBrag.Repositories.Interfaces;
+﻿using LachesBrag.Models;
+using LachesBrag.Repositories.Interfaces;
 using LanchesBrag.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,8 +17,13 @@ namespace LachesBrag.Controllers
             _carrinhoCompra = carrinhoCompra;
         }
 
-
+        [HttpGet]
         public IActionResult Checkout()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Checkout(Pedido pedido)
         {
             return View();
         }

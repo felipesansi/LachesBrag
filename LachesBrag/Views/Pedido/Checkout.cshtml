@@ -16,55 +16,66 @@
             <input asp-for="SobreNome" class="form-control bg-light" />
             <span asp-validation-for="SobreNome" class="text-danger"></span>
         </div>
-       
+
+       </div>
+
+       <div class="row">
+
         <div class="col-md-6">
             <label asp-for="Endereco1" class="control-label"></label>
             <input asp-for="Endereco1" class="form-control bg-light" />
             <span asp-validation-for="Endereco1" class="text-danger"></span>
         </div>
-       
+
         <div class="col-md-6">
             <label asp-for="Endereco2" class="control-label"></label>
             <input asp-for="Endereco2" class="form-control bg-light" />
             <span asp-validation-for="Endereco2" class="text-danger"></span>
         </div>
+
        
-        <div class="col-md-6">
+
+
+    </div>
+     
+    <div class="row">
+        <div class="col-md-4">
             <label asp-for="Telefone" class="control-label"></label>
-            <input asp-for="Telefone" class="form-control bg-light"  />
+            <input asp-for="Telefone" class="form-control bg-light" />
             <span asp-validation-for="Telefone" class="text-danger"></span>
         </div>
-       
-        <div class="col-md-6">
+
+        <div class="col-md-4">
             <label asp-for="Cidade" class="control-label"></label>
             <input asp-for="Cidade" class="form-control  bg-light" />
             <span asp-validation-for="Cidade" class="text-danger"></span>
         </div>
-       
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label asp-for="Estado" class="control-label"></label>
             <input asp-for="Estado" class="form-control bg-light" />
             <span asp-validation-for="Estado" class="text-danger"></span>
         </div>
 
-        <div class="col-md-6">
+     </div>
+       
+     <div class="row">
+
+        
+
+        <div class="col-md-12">
             <label asp-for="Email" class="control-label"></label>
             <input asp-for="Email" class="form-control bg-light" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
-       
-        
-
-        <div class="col-md-6">
+     </div>
+     <div class="col-md-6">
             <hr />
             <div class="row">
                 <input class="btn btn-success"type="submit" value="Finaliizar Pedido" />
                 &nbsp;
-                <input class="btn btn-outline-info" type="submit" value="Retornar" asp-action="CarrinhoCompra" />
+            <input class="btn btn-outline-info" type="submit" value="Retornar" asp-controller="CarrinhoCompra" asp-action="Index" />
             </div>
 
         </div>
-
-    </div>
 
 </form>

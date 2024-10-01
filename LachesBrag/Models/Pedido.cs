@@ -9,39 +9,39 @@ namespace LachesBrag.Models
         [Key]
         public int PedidoId { get; set; }
 
-        [Display(Name = "Informe seu Nome")]
+        [Display(Name = " Nome: ")]
         [Required (ErrorMessage = "Campo obrigatório")]
         [StringLength(999)]
 
         public string Nome { get; set; }
 
-        [Display(Name = "Informe seu Sobrenome")]
+        [Display(Name = "Sobrenome: ")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [StringLength(999)]
         public string SobreNome { get; set; }
-        [Display(Name = "Informe seu Endereço 1")]
+        [Display(Name = " Endereço 1: ")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [StringLength(999)]
         public string Endereco1 { get; set; }
-        [Display(Name = "Informe seu Endereço 2")]
+        [Display(Name = "Endereço 2: ")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [StringLength(999)]
         public string Endereco2 { get; set; }
-        [Display(Name = "Informe seu Estado")]
+        [Display(Name = " Estado: ")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [StringLength(999)]
         public string Estado {  get; set; }
-        [Display(Name = "Informe sua Cidade")]
+        [Display(Name = " Cidade: ")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [StringLength(999)]
 
         public string Cidade { get; set; }
-        [Display(Name = "Informe seu Telefone")]
+        [Display(Name = "Telefone:")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [StringLength(25)]
         [DataType(DataType.PhoneNumber)]
         public string Telefone { get; set; }
-        [Display(Name = "Informe seu E-mail")]
+        [Display(Name = " E-mail:")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Email inválido")]
