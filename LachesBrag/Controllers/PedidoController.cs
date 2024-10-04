@@ -25,7 +25,48 @@ namespace LachesBrag.Controllers
         [HttpPost]
         public IActionResult Checkout(Pedido pedido)
         {
-            return View();
+
+         int totalPedido = 0;
+         decimal precoTotal = 0.0m;
+
+            // OBTER ITENS DO CARRINHO
+
+            List<CarrinhoCompraItem> items = _carrinhoCompra.GetCarrinhoCompraItens();
+
+            _carrinhoCompra.CarrinhoCompraItems = items;
+            // 
+            if (_carrinhoCompra.CarrinhoCompraItems.Count ==0)
+            {
+                ModelState.AddModelError("","Seu carrinho esta vazio ");
+            }
+           // 
+            foreach( var item in items)
+            {
+                totalPedido = +item.Quantidade;
+                precoTotal =+ item.Quantidade * item.Lanche.Preco;
+            }
+           
+            // se o carrinho estiver compras
+   
+            if (ModelState.IsValid)
+            {
+                // Criar pedido
+               
+                _pedidoRepository.Criar_pediddo(pedido);
+                
+                // Mensagem de sucesso com viewBag
+                ViewBag.sucesso_checkeout = "Obrigado pelo seu peddo!";
+                ViewBag.totalPedido = _carrinhoCompra.MostarCarrinhoCompraTotal();
+               
+                // Limpar carrinho após 
+                _carrinhoCompra.LimparCarrinho();
+
+                // 
+                return View("~/Views/Pedido/CheckoutCompletto.cshtml", pedido);
+
+            }
+            return View(pedido);
+
         }
     }
 }

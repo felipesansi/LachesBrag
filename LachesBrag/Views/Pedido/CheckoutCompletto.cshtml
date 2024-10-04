@@ -1,0 +1,49 @@
+﻿@model Pedido;
+
+@{
+}
+
+<div class="container">
+    <div class="jumbotron text-center" style="background-color: #f8f9fa; border-radius: .3rem;">
+        <h2 class="display-4">@ViewBag.sucesso_checkout</h2>
+        <p class="lead">Seu pedido foi realizado com sucesso!</p>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <p>Cliente: <strong>@Model.Nome</strong></p>
+            <p>Data do pedido: <strong>@Model.PedidoEnviado</strong></p>
+            <p>Número do pedido: <strong>@Model.PedidoId</strong></p>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Quantidade</th>
+                    <th>Lanche</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PedidoItens)
+                {
+                    <tr>
+                        <td><img src="@item.Lanche.ImagemUrl" width="40" height="40" /></td>
+                        <td>@item.Quantidade</td>
+                        <td>@item.Lanche.Nome</td>
+                        <td>@item.Preco.ToString("C2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h2>Valor total do pedido: <strong>@(((decimal)@ViewBag.totalPedido).ToString("C2"))</strong></h2>
+    </div>
+</div>
+
+<div>
+    <div class="form-group text-center">
+        <a class="nav-link text-info" asp-controller="Home" asp-action="Index">Retornar</a>
+    </div>
+</div>
