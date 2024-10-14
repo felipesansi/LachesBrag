@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using LachesBrag.Context;
 using LachesBrag.Repositories.Interfaces;
 using LanchesBrag.Models;
+using Microsoft.AspNetCore.Identity;
 
 // Cria o construtor da aplicação web
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Adiciona o contexto do banco de dados como um serviço usando o Entity Framework Core
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configurar o Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>() 
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 
 // Adicionar serviços ao contêiner de injeção de dependência.
 builder.Services.AddControllersWithViews(); // Adiciona o suporte para controladores e views MVC
@@ -38,7 +45,7 @@ if (!app.Environment.IsDevelopment()) // Se não estiver em ambiente de desenvolv
     app.UseExceptionHandler("/Home/Error"); // Usa o manipulador de exceções para redirecionar para a página de erro
     app.UseHsts(); // Usa HTTP Strict Transport Security (HSTS) para reforçar a segurança
 }
-
+app.UseAuthentication(); // / Habilita a autenticação
 app.UseHttpsRedirection(); // Redireciona as requisições HTTP para HTTPS
 app.UseStaticFiles(); // Serve arquivos estáticos
 app.UseSession(); // Habilita o uso de sessões

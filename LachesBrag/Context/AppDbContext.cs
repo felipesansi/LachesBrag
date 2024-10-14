@@ -1,19 +1,21 @@
 ﻿using LachesBrag.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LachesBrag.Context
 {
-    public class AppDbContext : DbContext // colocar :  DbContext para colocar o contex para funcionar
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
-        public AppDbContext (DbContextOptions<AppDbContext> options) : base(options) // Construtor  do DbContext
-        { 
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
         }
+
         // Criando Tabelas
-      
-        public DbSet<Categoria> Categorias { get; set; } // Categoria é os elementos dentro do Tabela <Categorias>
-        public DbSet<Lanche> Lanches { get; set; } // Laches é os elementos dentro do Tabela <lanches>
-        public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; } // CarrinhoCompraItens é os elementos dentro do Tabela <CarrinhoCompraItem>
-        public DbSet<Pedido> Pedidos { get; set; } // Pedidos é os elementos dentro da Tabela <pedido>
-        public DbSet<PedidoDetalhe> PedidosDetalhe { get; set; } // PedidosDetalhe é os elementos dentro da Tabela <PedidosDetalhe>
+        public DbSet<Categoria> Categorias { get; set; } // Categorias são os elementos dentro da tabela <Categorias>
+        public DbSet<Lanche> Lanches { get; set; } // Lanches são os elementos dentro da tabela <Lanches>
+        public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; } // CarrinhoCompraItens são os elementos dentro da tabela <CarrinhoCompraItem>
+        public DbSet<Pedido> Pedidos { get; set; } // Pedidos são os elementos dentro da tabela <Pedidos>
+        public DbSet<PedidoDetalhe> PedidosDetalhe { get; set; } // PedidosDetalhe são os elementos dentro da tabela <PedidosDetalhe>
     }
 }
