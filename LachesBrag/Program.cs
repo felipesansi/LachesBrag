@@ -12,10 +12,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+
+
 // Configurar o Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>() 
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+
+// configuração de requisitos para senhas de cadastro no sistema
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 1;
+});
 
 
 // Adicionar serviços ao contêiner de injeção de dependência.
@@ -52,6 +67,7 @@ app.UseSession(); // Habilita o uso de sessões
 app.UseRouting(); // Habilita o roteamento
 
 app.UseAuthorization(); // Habilita a autorização
+
 
 // Configuração das rotas
 app.MapControllerRoute(
