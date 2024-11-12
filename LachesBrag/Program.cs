@@ -81,6 +81,11 @@ app.MapControllerRoute(
                                                              // Se o "action" não for especificado, será definido como "List".
 );
 
+app.MapControllerRoute( // rota area admin
+           name: "areas",
+           pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+         );
+
 
 app.MapControllerRoute(
     name: "default", // Define a rota padrão

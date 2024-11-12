@@ -1,6 +1,7 @@
 ﻿using LachesBrag.Repositories.Interfaces;
 using LachesBrag.ViewModel;
 using LanchesBrag.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LachesBrag.Controllers
@@ -35,6 +36,7 @@ namespace LachesBrag.Controllers
         }
 
         // Método que adiciona um item ao carrinho de compras
+        [Authorize]
         public IActionResult AdicionarItemNoCarrinhoCompra(int lancheId)
         {
             // Busca o lanche selecionado pelo ID
@@ -49,6 +51,7 @@ namespace LachesBrag.Controllers
         }
 
         // Método que remove um item do carrinho de compras
+        [Authorize]
         public IActionResult RemoverItemDoCarrinhoCompra(int lancheId)
         {
             // Busca o lanche selecionado pelo ID
