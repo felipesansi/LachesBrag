@@ -70,6 +70,8 @@ namespace LachesBrag.Controllers
                 
                 if (resultado.Succeeded)
                 {
+
+                    await _UserManager.AddToRoleAsync(usuario, "Member");
                    return RedirectToAction("Login", "Account");
                 }
                 else
@@ -93,6 +95,11 @@ namespace LachesBrag.Controllers
 
             
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
     }
