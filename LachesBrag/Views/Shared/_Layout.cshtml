@@ -19,6 +19,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav ms-auto">
+                        @if (User.IsInRole("Admin")) // verificar se usuario é da area admin
+                        {
+
+                            <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
+
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -33,6 +39,7 @@
                     <!-- Adicionando o componente de resumo do carrinho -->
                     <div class="navbar-text ms-3">
                         @await Component.InvokeAsync("CarrinhoCompraResumo")
+                    
                     </div>
                 </div>
                 <form class="navbar navbar-right" asp-controller="Lanche" asp-action="Pesquisa"method="get">
