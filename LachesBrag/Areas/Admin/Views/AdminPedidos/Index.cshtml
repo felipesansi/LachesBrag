@@ -1,0 +1,89 @@
+﻿@model IEnumerable<LachesBrag.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Lista de pedidos";
+}
+
+<h1>Lista de pedidos</h1>
+
+<p>
+    <a asp-action="Create">Criar pedidos agora</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SobreNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedidoEnviado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedididoEntregue)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SobreNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PedidoEnviado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PedididoEntregue)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PedidoId">Editar pedido</a> |
+                <a asp-action="Details" asp-route-id="@item.PedidoId">Detalhes do pedido</a> |
+                <a asp-action="Delete" asp-route-id="@item.PedidoId">Apagar pedido</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
