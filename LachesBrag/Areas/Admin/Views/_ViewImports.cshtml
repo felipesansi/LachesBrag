@@ -1,5 +1,20 @@
-﻿@using LachesBrag
+﻿// Importa o namespace LachesBrag, tornando disponíveis os tipos e membros definidos nele.
+@using LachesBrag
+
+// Importa o namespace LachesBrag.Models, que contém as definições dos modelos de dados utilizados no projeto.
 @using LachesBrag.Models
+
+// Importa o namespace LachesBrag.ViewModel, que contém as definições dos ViewModels utilizados no projeto.
 @using LachesBrag.ViewModel
+
+// Importa o namespace ReflectionIT.Mvc.Paging, que fornece funcionalidades de paginação para o projeto.
+@using ReflectionIT.Mvc.Paging
+
+// Adiciona os Tag Helpers fornecidos pelo pacote Microsoft.AspNetCore.Mvc.TagHelpers.
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+// Adiciona os Tag Helpers definidos no namespace LanchesBrag.TagHelpers dentro do assembly LanchesBrag.
 @addTagHelper "LanchesBrag.TagHelpers.*, LanchesBrag"
+
+// Adiciona os Tag Helpers fornecidos pelo pacote ReflectionIT.Mvc.Paging.
+@addTagHelper *, ReflectionIT.Mvc.Paging

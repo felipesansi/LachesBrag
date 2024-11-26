@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LachesBrag.Context;
 using LachesBrag.Models;
 using Microsoft.AspNetCore.Authorization;
+using ReflectionIT.Mvc.Paging;
 
 namespace LachesBrag.Areas.Admin.Controllers
 {
@@ -23,10 +24,33 @@ namespace LachesBrag.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminPedidos
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //      return View(await _context.Pedidos.ToListAsync());
+        //}
+
+        // Método assíncrono que retorna uma ActionResult e aceita parâmetros para filtrar, paginar e ordenar a lista de pedidos.
+        public async Task<IActionResult> Index(string filter, int pageIndex = 1, string sort = "Nome")
         {
-              return View(await _context.Pedidos.ToListAsync());
+            // Cria uma consulta baseada nos pedidos do contexto do banco de dados, usando AsNoTracking para melhor desempenho.
+            var resultado = _context.Pedidos.AsNoTracking().AsQueryable();
+
+            // Se o filtro não estiver vazio ou nulo, modifica a consulta para incluir apenas pedidos cujo nome contém o filtro.
+            if (!string.IsNullOrEmpty(filter))
+            {
+                resultado = resultado.Where(p => p.Nome.Contains(filter));
+            }
+
+            // Cria uma lista paginada e ordenada dos resultados, com 5 itens por página, baseado na consulta modificada.
+            var model = await PagingList.CreateAsync(resultado, 5, pageIndex, sort, "Nome");
+
+            // Define os valores de rota, incluindo o filtro, para que ele possa ser mantido nas requisições subsequentes.
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+
+            // Retorna a visão (view) com o modelo de dados paginado.
+            return View(model);
         }
+
 
         // GET: Admin/AdminPedidos/Details/5
         public async Task<IActionResult> Details(int? id)

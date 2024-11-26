@@ -33,16 +33,23 @@
                 <input asp-for="Preco" class="form-control" />
                 <span asp-validation-for="Preco" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="row">
+            <div class="form-group col-md-6">
                 <label asp-for="ImagemUrl" class="control-label"></label>
                 <input asp-for="ImagemUrl" class="form-control" />
                 <span asp-validation-for="ImagemUrl" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <img src="@Model.ImagemUrl" alt="imagem do lanche" />
+
+            </div>
             </div>
             <div class="form-group">
                 <label asp-for="ImagemThumbnailUrl" class="control-label"></label>
                 <input asp-for="ImagemThumbnailUrl" class="form-control" />
                 <span asp-validation-for="ImagemThumbnailUrl" class="text-danger"></span>
             </div>
+            
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="LanchePreferido" /> @Html.DisplayNameFor(model => model.LanchePreferido)

@@ -4,6 +4,7 @@ using LachesBrag.Repositories.Interfaces;
 using LanchesBrag.Models;
 using Microsoft.AspNetCore.Identity;
 using LachesBrag.Service;
+using ReflectionIT.Mvc.Paging;
 
 // Cria o construtor da aplicação web
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +54,13 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Adiciona o HttpContextAccessor como um serviço singleton
+
+builder.Services.AddPaging(options =>
+{
+    options.ViewName = "Bootstrap4";
+    options.PageParameterName = "pageindex";
+});
+
 
 builder.Services.AddMemoryCache(); // Adiciona o serviço de cache em memória
 builder.Services.AddSession(); // Adiciona o suporte para sessões
