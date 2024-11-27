@@ -1,0 +1,18 @@
+﻿@model int
+@{
+    ViewBag["Title"] = "404 Not Found ";
+
+}
+  
+<div class="alert alert-danger mt-1 mb-1">
+
+    <h1>Erro 404 Not Found </h1>
+    <hr />
+
+    <h2>
+        Pedido com ID @Model não encontrado    </h2>
+</div>
+
+<a asp-action = "Index" asp-controller ="" class="btn btn-info">
+    <h2>Retornar ao adminstrativo</h2>
+</a>

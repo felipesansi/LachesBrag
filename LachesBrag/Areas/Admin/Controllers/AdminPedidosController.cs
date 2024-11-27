@@ -9,6 +9,7 @@ using LachesBrag.Context;
 using LachesBrag.Models;
 using Microsoft.AspNetCore.Authorization;
 using ReflectionIT.Mvc.Paging;
+using LachesBrag.ViewModel;
 
 namespace LachesBrag.Areas.Admin.Controllers
 {
@@ -42,7 +43,7 @@ namespace LachesBrag.Areas.Admin.Controllers
             }
 
             // Cria uma lista paginada e ordenada dos resultados, com 5 itens por página, baseado na consulta modificada.
-            var model = await PagingList.CreateAsync(resultado, 5, pageIndex, sort, "Nome");
+            var model = await PagingList.CreateAsync(resultado, 3, pageIndex, sort, "Nome");
 
             // Define os valores de rota, incluindo o filtro, para que ele possa ser mantido nas requisições subsequentes.
             model.RouteValue = new RouteValueDictionary { { "filter", filter } };
@@ -50,7 +51,21 @@ namespace LachesBrag.Areas.Admin.Controllers
             // Retorna a visão (view) com o modelo de dados paginado.
             return View(model);
         }
-
+        public IActionResult PedidoLanches(int ? id)
+        {
+            var pedido = _context.Pedidos.Include(pd => pd.PedidoItens).ThenInclude(l => l.Lanche).FirstOrDefault(p=>p.PedidoId==id);
+            if (pedido == null)
+            {
+                Response.StatusCode = 404;
+                return View("PedidoNotFound", id.Value);
+            }
+            PedidoLacheViewModel pedidoLacheView = new PedidoLacheViewModel
+            {
+                pedido = pedido,
+                PedidoDetalhe = pedido.PedidoItens
+            };
+            return View(pedidoLacheView);
+        }
 
         // GET: Admin/AdminPedidos/Details/5
         public async Task<IActionResult> Details(int? id)

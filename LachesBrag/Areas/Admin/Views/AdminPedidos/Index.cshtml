@@ -12,15 +12,9 @@
 
 
 Total de pedidos : @Model.TotalRecordCount
-<div>
-    <vc:pager paging-list="@Model"></vc:pager>
 
-</div>
 <h1>Lista de pedidos</h1>
 
-<p>
-    <a asp-action="Create">Criar pedidos agora</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -91,11 +85,17 @@ Total de pedidos : @Model.TotalRecordCount
                 @Html.DisplayFor(modelItem => item.PedididoEntregue)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PedidoId">Editar pedido</a> |
-                <a asp-action="Details" asp-route-id="@item.PedidoId">Detalhes do pedido</a> |
-                <a asp-action="Delete" asp-route-id="@item.PedidoId">Apagar pedido</a>
+                <a asp-action="Edit" asp-route-id="@item.PedidoId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.PedidoId">Detalhes </a> |
+                <a asp-action="Delete" asp-route-id="@item.PedidoId">Apagar </a>
+                    <a asp-action="PedidoLanches" asp-route-id="@item.PedidoId">Ver itens  </a>
             </td>
         </tr>
 }
     </tbody>
+
 </table>
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+
+</div>
