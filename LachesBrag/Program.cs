@@ -5,6 +5,7 @@ using LanchesBrag.Models;
 using Microsoft.AspNetCore.Identity;
 using LachesBrag.Service;
 using ReflectionIT.Mvc.Paging;
+using LachesBrag.Areas.Admin.Servicos;
 
 // Cria o construtor da aplicação web
 var builder = WebApplication.CreateBuilder(args);
@@ -52,9 +53,14 @@ builder.Services.AddAuthorization(options =>
 
 // Registra o serviço `CarrinhoCompra` no contêiner de injeção de dependências com o ciclo de vida "Scoped"
 builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
+// Registrando RelatorioVendasSimples com tempo de vida escopo no contêiner de injeção de dependência
+
+builder.Services.AddScoped<RelatorioVendasSimples>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Adiciona o HttpContextAccessor como um serviço singleton
 
+
+// Configurando o serviço de paginação com a exibição Bootstrap4 e nome do parâmetro de página como "pageindex"
 builder.Services.AddPaging(options =>
 {
     options.ViewName = "Bootstrap4";

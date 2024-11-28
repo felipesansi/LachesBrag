@@ -9,17 +9,10 @@
 <h3>Cliente : @Html.DisplayFor(model => @Model.pedido.Nome)</h3>
 <h3>Data : @Html.DisplayFor(model => @Model.pedido.PedidoEnviado)</h3>
 <h3>Entrega : @Html.DisplayFor(model => @Model.pedido.PedididoEntregue)</h3>
-<table>
-    <thead>
-        <tr>
-            <th align="right">Lanche</th>
-            <th align="right">Imagem</th>
-            <th align="right">Preço</th>
-            <th align="right">Quantidade</th>
-
-        </tr>
-    </thead>
-    <tbody>
+<hr />
+<td colspan="2">&nbsp;</td>
+<table class="table">
+    
         @foreach (var itens in Model.pedido.PedidoItens)
         {
             totalPedido += (itens.Lanche.Preco * itens.Quantidade);
@@ -34,7 +27,7 @@
                     <h3>@string.Format("{0:C}", itens.Lanche.Preco)</h3>
                 </td>
                 <td align="right">
-                    <h3>@Html.DisplayFor(modelitens => itens.Quantidade)</h3>
+                <h3>(@Html.DisplayFor(modelitens => itens.Quantidade))</h3>
                 </td>
             
             </tr>
@@ -43,6 +36,6 @@
             <td colspan="4" align="right"><strong>Total do Pedido:</strong></td>
             <td align="right"><h3>@string.Format("{0:C}", totalPedido)</h3></td>
         </tr>
-    </tbody>
+
 </table>
 <a asp-action="Index" class="btn btn-outline-info">Retornar</a>

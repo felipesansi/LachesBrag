@@ -11,7 +11,7 @@
 </form>
 
 
-Total de pedidos : @Model.TotalRecordCount
+
 
 <h1>Lista de pedidos</h1>
 
@@ -88,14 +88,16 @@ Total de pedidos : @Model.TotalRecordCount
                 <a asp-action="Edit" asp-route-id="@item.PedidoId">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.PedidoId">Detalhes </a> |
                 <a asp-action="Delete" asp-route-id="@item.PedidoId">Apagar </a>
-                    <a asp-action="PedidoLanches" asp-route-id="@item.PedidoId">Ver itens  </a>
+                <a asp-action="PedidoLanches" asp-route-id="@item.PedidoId">Ver itens  </a>
             </td>
         </tr>
 }
     </tbody>
 
 </table>
-<div>
+  Total de pedidos : @Model.TotalRecordCount
+
+<div class="d-flex justify-content-center">
     <vc:pager paging-list="@Model"></vc:pager>
 
 </div>

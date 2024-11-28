@@ -4,21 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
-<!-- Formulário de filtro -->
+
 <form method="get" class="form-inline">
-    <input name="filter" class="form-control" placeholder="Filtro" value="@Model.RouteValue["filter"]" />
+    <input  name="filter" class="form-control" placeholder="Filtro" value="@Model.RouteValue["filter"]" />
     <button type="submit" class="btn btn-info">
         <span class="glyphicon glyphicon-search" aria-hidden="true">Procurar</span>
     </button>
 </form>
 
-<!-- Exibição do total de lanches -->
-Total de Lanches: @Model.TotalRecordCount
 
-<!-- Componente de paginação -->
-<div>
-    <vc:pager paging-list="@Model"></vc:pager>
-</div>
 
 <!-- Título da lista de produtos -->
 <h1>Lista de produtos</h1>
@@ -28,7 +22,7 @@ Total de Lanches: @Model.TotalRecordCount
     <a asp-action="Create">Criar novo produto</a>
 </p>
 
-<!-- Corrigindo a estrutura de div -->
+
 <div class="row">
     <div class="col-md-10">
 
@@ -57,7 +51,7 @@ Total de Lanches: @Model.TotalRecordCount
                     <th>
                         @Html.DisplayNameFor(model => model.Categoria)
                     </th>
-                    <th></th>
+                  
                 </tr>
             </thead>
             <tbody>
@@ -93,6 +87,11 @@ Total de Lanches: @Model.TotalRecordCount
                 }
             </tbody>
         </table>
+        <!-- Exibição do total de lanches -->
+        Total de Lanches: @Model.TotalRecordCount
 
+        <div class="d-flex justify-content-center">
+             <vc:pager paging-list="@Model"></vc:pager> 
+        </div>
     </div>
 </div>
