@@ -7,6 +7,7 @@ using LachesBrag.Service;
 using ReflectionIT.Mvc.Paging;
 using LachesBrag.Areas.Admin.Servicos;
 
+
 // Cria o construtor da aplicação web
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +39,7 @@ builder.Services.AddControllersWithViews(); // Adiciona o suporte para controlad
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>(); // Registra o repositório de categoria como um serviço transitório
 builder.Services.AddTransient<ILanchesRepository, LanchesRepository>(); // Registra o repositório de lanches como um serviço transitório
 builder.Services.AddTransient<IPeddidoRepository, PedidoRepository>(); // Registra o repositório de pedido como um serviço transitório
-
+builder.Services.AddScoped<RelatorioVendasService>();
 // Adiciona a classe SeedUserRolesInitial como um serviço de injeção de dependência com escopo (Scoped)
 builder.Services.AddScoped<ISeedUserRolesInitial, SeedUserRolesInitial>();
 
@@ -53,9 +54,6 @@ builder.Services.AddAuthorization(options =>
 
 // Registra o serviço `CarrinhoCompra` no contêiner de injeção de dependências com o ciclo de vida "Scoped"
 builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
-// Registrando RelatorioVendasSimples com tempo de vida escopo no contêiner de injeção de dependência
-
-builder.Services.AddScoped<RelatorioVendasSimples>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Adiciona o HttpContextAccessor como um serviço singleton
 

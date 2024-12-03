@@ -1,33 +1,44 @@
 ﻿using LachesBrag.Context;
 using LachesBrag.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LachesBrag.Areas.Admin.Servicos
 {
-    public class RelatorioVendasSimples
+    public class RelatorioVendasService
     {
         private readonly AppDbContext _context;
 
-        public RelatorioVendasSimples(AppDbContext context)
+        public RelatorioVendasService(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task <List<Pedido>> FindByAsync(DateTime? dataMax,DateTime? dataMini)
+        public async Task<(List<Pedido>, int totalLanches, decimal valorTotalVendas)> FindByDateAsync(DateTime? dataMin, DateTime? dataMax)
         {
-            var consulta = from obj in _context.Pedidos select obj;
+            var resultado = _context.Pedidos
+                .Include(p => p.PedidoItens)
+                .ThenInclude(pi => pi.Lanche)
+                .AsQueryable();
 
-            if (dataMini.HasValue)
+            if (dataMin.HasValue)
             {
-                consulta = consulta.Where(x => x.PedidoEnviado >= dataMini.Value);
-
+                resultado = resultado.Where(x => x.PedidoEnviado >= dataMin.Value);
             }
+
             if (dataMax.HasValue)
             {
-                consulta = consulta.Where(x => x.PedidoEnviado >= dataMax.Value);
-
+                resultado = resultado.Where(x => x.PedidoEnviado <= dataMax.Value);
             }
-             return await consulta.Include(l=> l.PedidoItens).ThenInclude(l =>l.Lanche).OrderByDescending(x=>x.PedidoEnviado).ToListAsync();
+
+            var pedidos = await resultado.ToListAsync();
+            var totalLanches = pedidos.SelectMany(p => p.PedidoItens).Sum(pi => pi.Quantidade);
+            var valorTotalVendas = pedidos.SelectMany(p => p.PedidoItens).Sum(pi => pi.Preco * pi.Quantidade);
+
+            return (pedidos, totalLanches, valorTotalVendas);
         }
     }
 }
