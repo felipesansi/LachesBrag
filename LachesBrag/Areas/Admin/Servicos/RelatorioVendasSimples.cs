@@ -35,10 +35,19 @@ namespace LachesBrag.Areas.Admin.Servicos
             }
 
             var pedidos = await resultado.ToListAsync();
+
+            
+            foreach (var pedido in pedidos)
+            {
+                pedido.TotalItensPedidos = pedido.PedidoItens.Sum(pi => pi.Quantidade);
+                pedido.PedidoTotal = pedido.PedidoItens.Sum(pi => pi.Preco * pi.Quantidade);
+            }
+
             var totalLanches = pedidos.SelectMany(p => p.PedidoItens).Sum(pi => pi.Quantidade);
             var valorTotalVendas = pedidos.SelectMany(p => p.PedidoItens).Sum(pi => pi.Preco * pi.Quantidade);
 
             return (pedidos, totalLanches, valorTotalVendas);
         }
+
     }
 }
