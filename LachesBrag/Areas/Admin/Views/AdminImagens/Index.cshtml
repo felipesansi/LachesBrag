@@ -1,0 +1,43 @@
+﻿<table border="0" width="100%" >
+    <tr>
+        <td>
+            
+            <form method="post" enctype="multipart/form-data" asp-controller ="AdminImagens" asp-action="">
+                <div class=" container">
+                    <div class="col-md-10">
+                    <p><b>Selecione um ou mais arquivos para enviar</b></p>
+                    <p>Arquivos com mesmo nome serão sobreescritos</p>
+                    <input type="file" name="file" multiple class="btn btn-danger" />
+                    </div>
+                    <hr />
+                </div>
+                <div class="col-md-10">
+                    <input type="submit" value="Enviar arquivo(s)" class="btn btn-info" />
+                </div>
+                </form>
+        </td>
+        <td>
+            <form method="post" enctype="multipart/form-data" asp-controller="AdminImagens" asp-action="">
+
+             <div class="container">
+                 <div class="col-md-10">
+                     <p><strong>Visualizar imagem na pasta do servidor</strong></p>
+                 </div>
+             </div>
+             <hr />
+                <div class="col-md-10">
+                    <input type="submit" value="Visualizar imagem na pasta do servidor" class="btn btn-info" />
+                </div>
+
+                </form>
+        </td>
+    </tr>
+</table>      
+
+<div class="container">
+    @if(ViewData["Deletado"] != null){
+     <li>
+            @ViewData["Deletado"]
+     </li>
+    }
+</div>

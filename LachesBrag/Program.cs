@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using LachesBrag.Service;
 using ReflectionIT.Mvc.Paging;
 using LachesBrag.Areas.Admin.Servicos;
+using LachesBrag.Models;
 
 
 // Cria o construtor da aplicação web
@@ -42,6 +43,7 @@ builder.Services.AddTransient<IPeddidoRepository, PedidoRepository>(); // Regist
 builder.Services.AddScoped<RelatorioVendasService>();
 // Adiciona a classe SeedUserRolesInitial como um serviço de injeção de dependência com escopo (Scoped)
 builder.Services.AddScoped<ISeedUserRolesInitial, SeedUserRolesInitial>();
+builder.Services.Configure<ConfigImagens>(builder.Configuration.GetSection("ConfigurationPastaImagens"));
 
 // Configura a política de autorização
 builder.Services.AddAuthorization(options =>
@@ -81,6 +83,7 @@ app.UseHttpsRedirection(); // Redireciona as requisições HTTP para HTTPS
 app.UseStaticFiles(); // Serve arquivos estáticos
 app.UseSession(); // Habilita o uso de sessões
 app.UseRouting(); // Habilita o roteamento
+app.UseStaticFiles();
 
 app.UseAuthentication(); // Habilita a autenticação
 app.UseAuthorization(); // Habilita a autorização
