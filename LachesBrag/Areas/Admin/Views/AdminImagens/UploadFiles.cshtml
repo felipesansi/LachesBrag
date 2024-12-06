@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "UploadaFiles";
+}
+<hr />
+<div class="bg-light">
+    <div class="container">
+        @if (ViewData["Erro"] != null)
+        {
+            
+            <h4>@ViewData["Erro"]</h4>
+        }
+    </div>
+    <div class="container">
+        @if (ViewData["Resultado"] != null)
+        {
+            <h4>@ViewData["Resultado"]</h4>
+            <hr />
+            @if (ViewBag.Arquivos != null)
+            {
+                @foreach (string arquivo in ViewBag.Arquivos)
+                {
+                    <ul>
+                        <li>
+                            @arquivo
+                        </li>
+                    </ul>
+                }
+            }
+        }
+    </div>
+</div>

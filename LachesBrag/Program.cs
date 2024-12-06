@@ -8,7 +8,6 @@ using ReflectionIT.Mvc.Paging;
 using LachesBrag.Areas.Admin.Servicos;
 using LachesBrag.Models;
 
-
 // Cria o construtor da aplicação web
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,14 +58,12 @@ builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Adiciona o HttpContextAccessor como um serviço singleton
 
-
 // Configurando o serviço de paginação com a exibição Bootstrap4 e nome do parâmetro de página como "pageindex"
 builder.Services.AddPaging(options =>
 {
     options.ViewName = "Bootstrap4";
     options.PageParameterName = "pageindex";
 });
-
 
 builder.Services.AddMemoryCache(); // Adiciona o serviço de cache em memória
 builder.Services.AddSession(); // Adiciona o suporte para sessões
@@ -83,14 +80,13 @@ app.UseHttpsRedirection(); // Redireciona as requisições HTTP para HTTPS
 app.UseStaticFiles(); // Serve arquivos estáticos
 app.UseSession(); // Habilita o uso de sessões
 app.UseRouting(); // Habilita o roteamento
-app.UseStaticFiles();
 
 app.UseAuthentication(); // Habilita a autenticação
 app.UseAuthorization(); // Habilita a autorização
 
 // Configuração das rotas
 app.MapControllerRoute(
-    name: "list",  // Define o nome da rota como "list", o que pode ser útil para gerar URLs ou fazer referência a essa rota em outras partes da aplicação
+    name: "list",  // Define o nome da rota como "list"
     pattern: "Lanche/{action=List}/{categoria?}", // Define o padrão da URL que será mapeado para esta rota
     defaults: new { controller = "Lanche", action = "List" } // Define valores padrão para os parâmetros da rota
 );
