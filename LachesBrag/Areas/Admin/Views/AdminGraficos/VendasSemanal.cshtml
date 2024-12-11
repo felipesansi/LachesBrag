@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Gráfico Semanal";
+    // Atualiza o título da página para refletir a visualização semanal
+}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@* // Carrega a biblioteca Google Charts *@
+
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+@* // Div onde o gráfico será desenhado, com largura de 900px e altura de 500px
+ *@
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart', 'line'] });
+    // Carrega a versão atual da biblioteca de gráficos Google Charts e os pacotes 'corechart' e 'line'
+
+    google.charts.setOnLoadCallback(CarregaDados);
+    // Define a função 'CarregaDados' para ser chamada quando a biblioteca Google Charts for carregada
+
+    function CarregaDados() {
+        $.ajax({
+            url: '@Url.Action("VendasLanches", "AdminGraficos")',
+            // URL da ação do controlador que retorna os dados em formato JSON
+
+            data: { dias: 7 },
+            // Dados enviados para a ação do controlador, neste caso, 7 dias
+
+            dataType: "json",
+            // Tipo de dados esperado da resposta (JSON)
+
+            type: "GET",
+            // Método de solicitação HTTP (GET)
+
+            error: function (xhr, status, error) {
+                var err = JSON.parse(xhr.responseText);
+                // Analisa a resposta do erro em JSON
+
+                toastr.error(err.message);
+                // Exibe uma mensagem de erro usando o toastr
+            },
+
+            success: function (data) {
+                GraficoVendasLanches(data);
+                // Chama a função 'GraficoVendasLanches' com os dados retornados
+
+                return false;
+                // Retorna false para prevenir qualquer ação padrão
+            }
+        });
+
+        return false;
+        // Retorna false para prevenir qualquer ação padrão
+    }
+
+    function GraficoVendasLanches(data) {
+        var dataArray = [
+            ['Lanche', 'Quantidade', 'Valores(R$)']
+            // Array de cabeçalhos para o gráfico
+        ];
+
+        $.each(data, function (i, item) {
+            dataArray.push([item.nomeLanche, item.quantidadeTotalVendida, item.valorTotalVendido]);
+            // Adiciona os dados dos lanches ao array para o gráfico
+        });
+
+        var data = google.visualization.arrayToDataTable(dataArray);
+        // Converte o array de dados em um formato de DataTable usado pelo Google Charts
+
+        var options = {
+            title: 'Lanches - Vendas nos últimos 7 dias',
+            // Título do gráfico
+            curveType: 'function',
+            // Define o tipo de curva como função para suavização
+
+            legend: { position: 'bottom' },
+            // Define a posição da legenda na parte inferior do gráfico
+
+            chartArea: {
+                width: '70%'
+                // Área do gráfico ocupando 70% da largura da div
+            },
+
+            colors: ['#5202b5', '#d2a828'],
+            // Cores das linhas no gráfico
+
+            hAxis: {
+                title: 'Valor Total (em Reais)',
+                // Título do eixo horizontal
+
+                minValue: 0
+                // Valor mínimo do eixo horizontal
+            },
+
+            vAxis: {
+                title: 'Lanches'
+                // Título do eixo vertical
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        // Cria um novo gráfico de linhas no elemento com id 'chart_div'
+
+        chart.draw(data, options);
+        // Desenha o gráfico usando os dados e as opções fornecidas
+    }
+</script>

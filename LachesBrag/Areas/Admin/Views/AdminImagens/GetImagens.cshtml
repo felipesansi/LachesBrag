@@ -2,33 +2,38 @@
 @{
     ViewBag.Title = "Arquivos";
 }
-@if (Model.Files != null)
+
+@if (Model.Files != null && Model.Files.Any())
 {
-        <h3>Imagens:</h3>
-        <hr />
-    var caminho = Model.PathImagemProduto;
-        <div class="row">
+    <h3>Imagens:</h3>
+    <hr />
+    <div class="row">
         @foreach (FileInfo file in Model.Files)
         {
-                    <div class="column">
-                        <img src="~/@caminho/@file.Name" width="125" height="125" title="@file.Name" asp-append-version="true">
-                        <div style="padding:10px;text-align:left">
-                            <a href="@Url.Action("Deletefile","AdminImagens",new { fname=file.Name})">Deletar</a>
-                        </div>
-                    </div>
+            <div class="col-3 text-center mb-4">
+                <img src="~/@Model.PathImagemProduto/@file.Name" alt="@file.Name" width="125" height="125" title="@file.Name">
+                <div style="padding:10px;text-align:center">
+                    <a href="@Url.Action("Deletefile", "AdminImagens", new { fname = file.Name })" class="btn btn-danger btn-sm">Deletar</a>
+                </div>
+            </div>
         }
-        </div>
+    </div>
 }
-@if (ViewData["Erro"] != null)
+else
 {
- 
-        <h4>@ViewData["Erro"]</h4>
+    <h4>Não há arquivos disponíveis.</h4>
 }
+
+@if (!string.IsNullOrEmpty(ViewData["Erro"]?.ToString()))
+{
+    <h4 class="text-danger">@ViewData["Erro"]</h4>
+}
+
 <div class="clearfix"></div>
 <hr />
 <div>
-    <span>Para ver o nome do arquivo passa o mouse na imagem</span>
+    <span>Para ver o nome do arquivo, passe o mouse na imagem</span>
 </div>
-<div class="form-group">
+<div class="form-group mt-3">
     <a class="btn btn-outline-info" asp-controller="AdminImagens" asp-action="Index">Retornar</a>
 </div>

@@ -41,7 +41,21 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminImagens" asp-action="Index">Upload de imagems</a>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Gráficos
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item active" asp-area="Admin" asp-controller="AdminGraficos" asp-action="Index" asp-route-data="">Anual</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="AdminGraficos" asp-action="VndasMensal" asp-route-data="30">Mensal</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="AdminGraficos" asp-action="VendasSemanal" asp-route-data="7">Semanal </a></li>
+                                   
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="Admin" asp-controller="AdminImagens" asp-action="Index">Gerencimento de imagems</a>
                         </li>
                   </ul>
                 </div>

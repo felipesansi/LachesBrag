@@ -40,6 +40,7 @@ builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>(); // R
 builder.Services.AddTransient<ILanchesRepository, LanchesRepository>(); // Registra o repositório de lanches como um serviço transitório
 builder.Services.AddTransient<IPeddidoRepository, PedidoRepository>(); // Registra o repositório de pedido como um serviço transitório
 builder.Services.AddScoped<RelatorioVendasService>();
+builder.Services.AddScoped<GraficosLancheServices>();
 // Adiciona a classe SeedUserRolesInitial como um serviço de injeção de dependência com escopo (Scoped)
 builder.Services.AddScoped<ISeedUserRolesInitial, SeedUserRolesInitial>();
 builder.Services.Configure<ConfigImagens>(builder.Configuration.GetSection("ConfigurationPastaImagens"));
