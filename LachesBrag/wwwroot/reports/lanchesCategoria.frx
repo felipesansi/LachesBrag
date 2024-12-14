@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/13/2024 14:52:07" ReportInfo.Modified="12/13/2024 15:21:20" ReportInfo.CreatorVersion="2025.1.0.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqzP/32u1QtzIsUJqKG+CmmuLYtHYFzGPOZCd8g3wjDForRZbBtSX7lDdvvN1W5LbCIdpzJmwbtOb9bckti+J9WEh1bn5uXp2yaLW9RbTM/JXRTEQ5bejN6MpWw9W6ZlLO1o9Dg+kD6e8flekfqgYe5y/C05oeT0FxSYfbvwCyzQZhAUy77XBsn2hRD02WB3THmna4mjE1WWNLOa/0ws4NPA==">
+      <TableDataSource Name="sysdiagrams" DataType="System.Int32" Enabled="true" TableName="sysdiagrams">
+        <Column Name="name" DataType="System.String"/>
+        <Column Name="principal_id" DataType="System.Int32"/>
+        <Column Name="diagram_id" DataType="System.Int32"/>
+        <Column Name="version" DataType="System.Int32"/>
+        <Column Name="definition" DataType="System.Byte[]" BindableControl="Picture"/>
+      </TableDataSource>
+      <TableDataSource Name="AspNetRoles" DataType="System.Int32" Enabled="true" TableName="AspNetRoles">
+        <Column Name="Id" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="NormalizedName" DataType="System.String"/>
+        <Column Name="ConcurrencyStamp" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="AspNetUsers" DataType="System.Int32" Enabled="true" TableName="AspNetUsers">
+        <Column Name="Id" DataType="System.String"/>
+        <Column Name="UserName" DataType="System.String"/>
+        <Column Name="NormalizedUserName" DataType="System.String"/>
+        <Column Name="Email" DataType="System.String"/>
+        <Column Name="NormalizedEmail" DataType="System.String"/>
+        <Column Name="EmailConfirmed" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="PasswordHash" DataType="System.String"/>
+        <Column Name="SecurityStamp" DataType="System.String"/>
+        <Column Name="ConcurrencyStamp" DataType="System.String"/>
+        <Column Name="PhoneNumber" DataType="System.String"/>
+        <Column Name="PhoneNumberConfirmed" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="TwoFactorEnabled" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="LockoutEnd" DataType="System.DateTimeOffset"/>
+        <Column Name="LockoutEnabled" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="AccessFailedCount" DataType="System.Int32"/>
+      </TableDataSource>
+      <TableDataSource Name="AspNetRoleClaims" DataType="System.Int32" Enabled="true" TableName="AspNetRoleClaims">
+        <Column Name="Id" DataType="System.Int32"/>
+        <Column Name="RoleId" DataType="System.String"/>
+        <Column Name="ClaimType" DataType="System.String"/>
+        <Column Name="ClaimValue" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="AspNetUserClaims" DataType="System.Int32" Enabled="true" TableName="AspNetUserClaims">
+        <Column Name="Id" DataType="System.Int32"/>
+        <Column Name="UserId" DataType="System.String"/>
+        <Column Name="ClaimType" DataType="System.String"/>
+        <Column Name="ClaimValue" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="AspNetUserLogins" DataType="System.Int32" Enabled="true" TableName="AspNetUserLogins">
+        <Column Name="LoginProvider" DataType="System.String"/>
+        <Column Name="ProviderKey" DataType="System.String"/>
+        <Column Name="ProviderDisplayName" DataType="System.String"/>
+        <Column Name="UserId" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="AspNetUserRoles" DataType="System.Int32" Enabled="true" TableName="AspNetUserRoles">
+        <Column Name="UserId" DataType="System.String"/>
+        <Column Name="RoleId" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="AspNetUserTokens" DataType="System.Int32" Enabled="true" TableName="AspNetUserTokens">
+        <Column Name="UserId" DataType="System.String"/>
+        <Column Name="LoginProvider" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Value" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="__EFMigrationsHistory" DataType="System.Int32" Enabled="true" TableName="__EFMigrationsHistory">
+        <Column Name="MigrationId" DataType="System.String"/>
+        <Column Name="ProductVersion" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="Categorias" DataType="System.Int32" Enabled="true" TableName="Categorias">
+        <Column Name="CategoriaId" DataType="System.Int32"/>
+        <Column Name="CategoriaNome" DataType="System.String"/>
+        <Column Name="Descricao" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="Lanches" DataType="System.Int32" Enabled="true" TableName="Lanches">
+        <Column Name="LancheId" DataType="System.Int32"/>
+        <Column Name="Nome" DataType="System.String"/>
+        <Column Name="DescricaoCurta" DataType="System.String"/>
+        <Column Name="DescricacaoDetalhada" DataType="System.String"/>
+        <Column Name="Preco" DataType="System.Decimal"/>
+        <Column Name="ImagemUrl" DataType="System.String"/>
+        <Column Name="ImagemThumbnailUrl" DataType="System.String"/>
+        <Column Name="LanchePreferido" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="LancheEmEstoque" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="CategoriaId" DataType="System.Int32"/>
+      </TableDataSource>
+      <TableDataSource Name="CarrinhoCompraItens" DataType="System.Int32" Enabled="true" TableName="CarrinhoCompraItens">
+        <Column Name="CarrinhoCompraItemId" DataType="System.Int32"/>
+        <Column Name="LancheId" DataType="System.Int32"/>
+        <Column Name="Quantidade" DataType="System.Int32"/>
+        <Column Name="CarrinhoCompraId" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="Pedido" DataType="System.Int32" Enabled="true" TableName="Pedido">
+        <Column Name="PedidoId" DataType="System.Int32"/>
+        <Column Name="Nome" DataType="System.String"/>
+        <Column Name="SobreNome" DataType="System.String"/>
+        <Column Name="Endereco1" DataType="System.String"/>
+        <Column Name="Endereco2" DataType="System.String"/>
+        <Column Name="Estado" DataType="System.String"/>
+        <Column Name="Cidade" DataType="System.String"/>
+        <Column Name="Telefone" DataType="System.String"/>
+        <Column Name="Email" DataType="System.String"/>
+        <Column Name="PedidoTotal" DataType="System.Decimal"/>
+        <Column Name="TotalItensPedidos" DataType="System.Int32"/>
+        <Column Name="PedidoEnviado" DataType="System.DateTime"/>
+        <Column Name="PedididoEntregue" DataType="System.DateTime"/>
+      </TableDataSource>
+      <TableDataSource Name="PedidosDetalhe" DataType="System.Int32" Enabled="true" TableName="PedidosDetalhe">
+        <Column Name="PedidoDetalheId" DataType="System.Int32"/>
+        <Column Name="PedidoId" DataType="System.Int32"/>
+        <Column Name="LancheId" DataType="System.Int32"/>
+        <Column Name="Quantidade" DataType="System.Int32"/>
+        <Column Name="Preco" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Relation Name="Categorias_Lanches" ParentDataSource="Categorias" ChildDataSource="Lanches" ParentColumns="CategoriaId" ChildColumns="CategoriaId" Enabled="true"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text7" Left="18.9" Top="9.45" Width="652.05" Height="18.9" Text="Laches por categoria" HorzAlign="Center" Font="Arial, 14pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="41.8" Width="718.2" Height="75.6" Fill.Color="Chocolate" DataSource="Categorias">
+      <TextObject Name="Text1" Left="18.9" Top="28.35" Width="255.15" Height="18.9" Text="[Categorias.CategoriaNome]" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text3" Left="349.65" Top="28.35" Width="330.75" Height="18.9" Text="[Categorias.Descricao]" Font="Arial, 12pt, style=Bold"/>
+      <DataBand Name="Data2" Top="182.1" Width="718.2" Height="85.05" DataSource="Lanches">
+        <TextObject Name="Text4" Left="18.9" Top="9.45" Width="179.55" Height="18.9" Text="[Lanches.Nome]" Font="Arial, 10pt"/>
+        <TextObject Name="Text5" Left="349.65" Top="9.45" Width="189" Height="18.9" Text="[Lanches.DescricaoCurta]" Font="Arial, 10pt"/>
+        <PictureObject Name="Picture1" Left="595.35" Top="9.45" Width="75.6" Height="75.6" DataColumn="Lanches.ImagemUrl"/>
+        <DataHeaderBand Name="DataHeader1" Top="121.4" Width="718.2" Height="56.7" Fill.Color="Silver">
+          <TextObject Name="Text2" Left="18.9" Top="9.45" Width="94.5" Height="18.9" Text="Nome" Font="Arial, 12pt"/>
+          <TextObject Name="Text6" Left="349.65" Top="9.45" Width="330.75" Height="18.9" Text="Descrição  Curta" Font="Arial, 10pt"/>
+        </DataHeaderBand>
+      </DataBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="271.15" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

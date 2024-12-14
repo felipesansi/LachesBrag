@@ -7,6 +7,8 @@ using LachesBrag.Service;
 using ReflectionIT.Mvc.Paging;
 using LachesBrag.Areas.Admin.Servicos;
 using LachesBrag.Models;
+using FastReport.Data;
+using FastReport; // Adicione essa linha para importar o FastReport
 
 // Cria o construtor da aplicação web
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +37,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 // Adicionar serviços ao contêiner de injeção de dependência
 builder.Services.AddControllersWithViews(); // Adiciona o suporte para controladores e views MVC
 
+// Registra o serviço do FastReport
+builder.Services.AddFastReport(); // Registra o FastReport no contêiner DI
+
 // Registro dos repositórios
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>(); // Registra o repositório de categoria como um serviço transitório
 builder.Services.AddTransient<ILanchesRepository, LanchesRepository>(); // Registra o repositório de lanches como um serviço transitório
@@ -44,6 +49,7 @@ builder.Services.AddScoped<GraficosLancheServices>();
 // Adiciona a classe SeedUserRolesInitial como um serviço de injeção de dependência com escopo (Scoped)
 builder.Services.AddScoped<ISeedUserRolesInitial, SeedUserRolesInitial>();
 builder.Services.Configure<ConfigImagens>(builder.Configuration.GetSection("ConfigurationPastaImagens"));
+builder.Services.AddScoped<RelatorioLanchesServices>();
 
 // Configura a política de autorização
 builder.Services.AddAuthorization(options =>
@@ -80,6 +86,7 @@ if (!app.Environment.IsDevelopment()) // Se não estiver em ambiente de desenvolv
 app.UseHttpsRedirection(); // Redireciona as requisições HTTP para HTTPS
 app.UseStaticFiles(); // Serve arquivos estáticos
 app.UseSession(); // Habilita o uso de sessões
+app.UseFastReport(); // Habilita o uso do FastReport
 app.UseRouting(); // Habilita o roteamento
 
 app.UseAuthentication(); // Habilita a autenticação
